@@ -30,12 +30,6 @@ The console requires an OpenAI API key (user key or project key) that has access
 
 To start a session you'll need to connect. This will require microphone access. You can then choose between manual (Push-to-talk) and vad (Voice Activity Detection) conversation modes, and switch between them at any time.
 
-There are two functions enabled;
-
-get_weather: Ask for the weather anywhere and the model will do its best to pinpoint the location, show it on a map, and get the weather for that location. Note that it doesn't have location access, and coordinates are "guessed" from the model's training data so accuracy might not be perfect.
-set_memory: You can ask the model to remember information for you, and it will store it in a JSON blob on the left.
-You can freely interrupt the model at any time in push-to-talk or VAD mode.
-
 Using a relay server
 If you would like to build a more robust implementation and play around with the reference client using your own server, we have included a Node.js Relay Server.
 

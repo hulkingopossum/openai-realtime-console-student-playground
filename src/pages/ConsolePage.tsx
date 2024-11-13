@@ -384,12 +384,17 @@ y   * - realtimeEvents are event logs, which can be expanded
 
     // Set instructions
     client.updateSession({
-      instructions: instructions({ label: '🇰🇷 Korean', text: '번역된 텍스트' }),
+      instructions: instructions({
+          label: 'Translation Label',
+          text: 'Translated text to audio'
+      }),
+      // input_audio_transcription: { model: 'whisper-1' }, // Enable transcription if needed
     });
-    // Set transcription, otherwise we don't get user transcriptions back
-    // client.updateSession({ input_audio_transcription: { model: 'whisper-1' } });
 
-    client.updateSession({ modalities: ['text'] });
+
+    client.updateSession({ 
+      modalities:['text', 'audio'] 
+    });
 
     // handle realtime events from client + server for event logging
     client.on('realtime.event', (realtimeEvent: RealtimeEvent) => {
@@ -416,18 +421,25 @@ y   * - realtimeEvents are event logs, which can be expanded
     });
     client.on('conversation.updated', async ({ item, delta }: any) => {
       const items = client.conversation.getItems();
-      if (delta?.audio) {
-        wavStreamPlayer.add16BitPCM(delta.audio, item.id);
-      }
+  
+      // Check if delta contains audio (partial responses)
+      // if (delta?.audio) {
+      //     wavStreamPlayer.add16BitPCM(delta.audio, item.id); // Play audio as it's received
+      // }
+  
+      // For fully completed audio responses, decode and add for playback if necessary
       if (item.status === 'completed' && item.formatted.audio?.length) {
-        const wavFile = await WavRecorder.decode(
-          item.formatted.audio,
-          24000,
-          24000
-        );
-        item.formatted.file = wavFile;
+          const wavFile = await WavRecorder.decode(
+              item.formatted.audio,
+              24000,  // Ensure sample rate matches
+              24000
+          );
+          item.formatted.file = wavFile; // Optional: Store decoded file if needed for UI display
+          wavStreamPlayer.add16BitPCM(item.formatted.audio, item.id); // Play the completed audio
       }
-      setItems(items);
+  
+      setItems(items); // Update UI to reflect conversation items
+  
 
       console.log(item);
 
