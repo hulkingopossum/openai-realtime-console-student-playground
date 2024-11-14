@@ -88,7 +88,7 @@ export function ConsolePage() {
   /**
    * All of our variables for displaying application state
    * - items are all conversation items (dialog)
-y   * - realtimeEvents are event logs, which can be expanded
+   * - realtimeEvents are event logs, which can be expanded
    * - coords, marker are for get_weather() function
    */
   const [items, setItems] = useState<ItemType[]>([]);
@@ -118,8 +118,33 @@ y   * - realtimeEvents are event logs, which can be expanded
     { code: 'es', label: '🇪🇸 Spanish', text: 'Texto traducido' },
     { code: 'fr', label: '🇫🇷 French', text: 'Texte traduit' },
     { code: 'de', label: '🇩🇪 German', text: 'Übersetzter Text' },
-    // Add more languages as needed
-  ];
+    { code: 'it', label: '🇮🇹 Italian', text: 'Testo tradotto' },
+    { code: 'pt', label: '🇵🇹 Portuguese', text: 'Texto traduzido' },
+    { code: 'ru', label: '🇷🇺 Russian', text: 'Переведенный текст' },
+    { code: 'ar', label: '🇸🇦 Arabic', text: 'النص المترجم' },
+    { code: 'hi', label: '🇮🇳 Hindi', text: 'अनुवादित पाठ' },
+    { code: 'bn', label: '🇧🇩 Bengali', text: 'অনুবাদ করা পাঠ্য' },
+    { code: 'tr', label: '🇹🇷 Turkish', text: 'Çevrilmiş metin' },
+    { code: 'vi', label: '🇻🇳 Vietnamese', text: 'Văn bản đã dịch' },
+    { code: 'th', label: '🇹🇭 Thai', text: 'ข้อความที่แปล' },
+    { code: 'nl', label: '🇳🇱 Dutch', text: 'Vertaald tekst' },
+    { code: 'pl', label: '🇵🇱 Polish', text: 'Przetłumaczony tekst' },
+    { code: 'sv', label: '🇸🇪 Swedish', text: 'Översatt text' },
+    { code: 'no', label: '🇳🇴 Norwegian', text: 'Oversatt tekst' },
+    { code: 'fi', label: '🇫🇮 Finnish', text: 'Käännetty teksti' },
+    { code: 'da', label: '🇩🇰 Danish', text: 'Oversat tekst' },
+    { code: 'cs', label: '🇨🇿 Czech', text: 'Přeložený text' },
+    { code: 'el', label: '🇬🇷 Greek', text: 'Μεταφρασμένο κείμενο' },
+    { code: 'hu', label: '🇭🇺 Hungarian', text: 'Fordított szöveg' },
+    { code: 'he', label: '🇮🇱 Hebrew', text: 'טקסט מתורגם' },
+    { code: 'id', label: '🇮🇩 Indonesian', text: 'Teks yang diterjemahkan' },
+    { code: 'ms', label: '🇲🇾 Malay', text: 'Teks yang diterjemah' },
+    { code: 'ro', label: '🇷🇴 Romanian', text: 'Text tradus' },
+    { code: 'uk', label: '🇺🇦 Ukrainian', text: 'Перекладений текст' },
+    { code: 'so', label: '🇸🇴 Somali', text: 'Qoraal la turjumay' },
+    { code: 'fa', label: '🇮🇷 Persian (Farsi)', text: 'متن ترجمه شده' },
+    //add more languages as necessary
+];
 
   /**
    * Utility for formatting the timing of logs
@@ -161,7 +186,7 @@ y   * - realtimeEvents are event logs, which can be expanded
 
   /**
    * Connect to conversation:
-   * WavRecorder taks speech input, WavStreamPlayer output, client is API client
+   * WavRecorder takes speech input, WavStreamPlayer output, client is API client
    */
   const connectConversation = useCallback(async () => {
     const client = clientRef.current;
@@ -186,7 +211,6 @@ y   * - realtimeEvents are event logs, which can be expanded
       {
         type: `input_text`,
         text: `Hello!`,
-        // text: `For testing purposes, I want you to list ten car brands. Number each item, e.g. "one (or whatever number you are one): the item name".`
       },
     ]);
 
@@ -386,7 +410,7 @@ y   * - realtimeEvents are event logs, which can be expanded
     client.updateSession({
       instructions: instructions({
           label: 'Translation Label',
-          text: 'Translated text to audio'
+          text: 'Translated audio to audio'
       }),
       // input_audio_transcription: { model: 'whisper-1' }, // Enable transcription if needed
     });
@@ -423,21 +447,10 @@ y   * - realtimeEvents are event logs, which can be expanded
       const items = client.conversation.getItems();
   
       // Check if delta contains audio (partial responses)
-      // if (delta?.audio) {
-      //     wavStreamPlayer.add16BitPCM(delta.audio, item.id); // Play audio as it's received
-      // }
-  
-      // For fully completed audio responses, decode and add for playback if necessary
-      if (item.status === 'completed' && item.formatted.audio?.length) {
-          const wavFile = await WavRecorder.decode(
-              item.formatted.audio,
-              24000,  // Ensure sample rate matches
-              24000
-          );
-          item.formatted.file = wavFile; // Optional: Store decoded file if needed for UI display
-          wavStreamPlayer.add16BitPCM(item.formatted.audio, item.id); // Play the completed audio
+      if (delta?.audio) {
+          wavStreamPlayer.add16BitPCM(delta.audio, item.id); // Play audio as it's received
       }
-  
+
       setItems(items); // Update UI to reflect conversation items
   
 
