@@ -7,8 +7,7 @@ Welcome to the **Language Translator Application**, a powerful tool designed to 
 - [Features](#features)
 - [Usage](#usage)
 - [API Reference](#api-reference)
-- [Contributing](#contributing)
-- [License](#license)
+- [Thanks](#thanks)
 
 ---
 
