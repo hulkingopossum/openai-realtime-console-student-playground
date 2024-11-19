@@ -1,3 +1,6 @@
+ALL OF THIS NEEDS TO BE EDITED TO NOT JUST BE TEMPLATES AND ACTUALLY REFLECT WTF IS GOING ON WITH IT
+
+
 # openai-realtime-console-student-playground
 React app for inspecting, building and debugging with the Realtime API. Playground for Zoe
 
