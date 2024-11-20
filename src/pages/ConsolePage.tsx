@@ -119,6 +119,7 @@ export function ConsolePage() {
     { code: 'fr', label: '🇫🇷 French', text: 'Texte traduit' },
     { code: 'de', label: '🇩🇪 German', text: 'Übersetzter Text' },
     { code: 'it', label: '🇮🇹 Italian', text: 'Testo tradotto' },
+    { code: 'tl', label: '🇵🇭 Tagalog', text: 'Isinalin na teksto' },
     { code: 'pt', label: '🇵🇹 Portuguese', text: 'Texto traduzido' },
     { code: 'ru', label: '🇷🇺 Russian', text: 'Переведенный текст' },
     { code: 'ar', label: '🇸🇦 Arabic', text: 'النص المترجم' },
