@@ -1,6 +1,7 @@
 {
     "name": "openai-realtime-console",
     "version": "0.0.0",
+    "homepage": "https://hulkingopossum.github.io/openai-realtime-console-student-playground",
     "type": "module",
     "private": true,
     "dependencies": {
@@ -27,13 +28,15 @@
         "ws": "^8.18.0"
     },
     "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject",
-        "zip": "zip -r realtime-api-console.zip . -x 'node_modules' 'node_modules/*' 'node_modules/**' '.git' '.git/*' '.git/**' '.DS_Store' '*/.DS_Store' 'package-lock.json' '*.zip' '*.tar.gz' '*.tar' '.env'",
-        "relay": "nodemon ./relay-server/index.js"
-    },
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "zip": "zip -r realtime-api-console.zip . -x 'node_modules' 'node_modules/*' 'node_modules/**' '.git' '.git/*' '.git/**' '.DS_Store' '*/.DS_Store' 'package-lock.json' '*.zip' '*.tar.gz' '*.tar' '.env'",
+    "relay": "nodemon ./relay-server/index.js"
+},
     "eslintConfig": {
         "extends": [
             "react-app",
